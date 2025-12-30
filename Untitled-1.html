@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OVNLY — Be Your Own</title>
+
+  <!-- META BRAND -->
+  <meta name="description" content="OVNLY — Be Your Own. Modern-minimalist fashion brand. The Human Archive." />
+
+  <style>
+    :root {
+      --bg-main: #0b1014;
+      --bg-layer: #141b20;
+      --bg-accent: #1d262c;
+      --text-main: #ededed;
+      --text-muted: #9aa3aa;
+      --accent: #c8c1b6;
+      --border-soft: rgba(255,255,255,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, #1c252c, transparent 40%),
+        radial-gradient(circle at 90% 90%, #0a0f13, transparent 45%),
+        linear-gradient(180deg, var(--bg-main), var(--bg-layer));
+      color: var(--text-main);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* FILM GRAIN */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="5"/></filter><rect width="300" height="300" filter="url(%23n)" opacity="0.04"/></svg>');
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.4rem 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(18px);
+      background: rgba(11,16,20,0.55);
+      border-bottom: 1px solid var(--border-soft);
+      z-index: 10;
+    }
+
+    nav img { height: 42px; opacity: 0.9; }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    /* HERO */
+    header {
+      min-height: 100vh;
+      padding: 10rem 6vw 6rem;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: 4.6rem;
+      font-weight: 600;
+      letter-spacing: -2px;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    .hero-text p {
+      margin-top: 2.4rem;
+      max-width: 560px;
+      color: var(--text-muted);
+      animation: fadeUp 1.4s ease forwards;
+    }
+
+    .cta {
+      margin-top: 3.6rem;
+      display: flex;
+      gap: 1.6rem;
+      animation: fadeUp 1.6s ease forwards;
+    }
+
+    .btn {
+      padding: 1rem 2.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: transparent;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.35s ease;
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+    }
+
+    .hero-art img {
+      width: 100%;
+      border-radius: 26px;
+      box-shadow: 0 80px 180px rgba(0,0,0,0.75);
+      animation: floatSlow 9s ease-in-out infinite;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 7rem 6vw;
+      position: relative;
+    }
+
+    section::after {
+      content: "";
+      position: absolute;
+      left: 6vw;
+      right: 6vw;
+      bottom: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border-soft), transparent);
+    }
+
+    /* ABOUT */
+    .philosophy h2 {
+      font-size: 2.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .philosophy p {
+      color: var(--text-muted);
+      max-width: 900px;
+      margin-bottom: 1.4rem;
+    }
+
+    /* COLLECTION */
+    .collection {
+      text-align: center;
+    }
+
+    .collection h2 { font-size: 3.2rem; }
+    .collection span { color: var(--text-muted); font-style: italic; }
+
+    .mockup {
+      margin-top: 5rem;
+    }
+
+    .mockup img {
+      width: 100%;
+      max-width: 980px;
+      border-radius: 28px;
+      box-shadow: 0 90px 220px rgba(0,0,0,0.8);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 6rem 6vw;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 3.5rem;
+    }
+
+    footer h4 { font-weight: 500; margin-bottom: 1.2rem; letter-spacing: 1px; }
+    footer p { color: var(--text-muted); }
+
+    .social {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1.2rem;
+    }
+
+    .social a {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s ease;
+    }
+
+    .social a:hover {
+      background: radial-gradient(circle at 30% 30%, var(--accent), #b7afa3);
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .icon {
+      width: 22px;
+      fill: none;
+      stroke: var(--text-main);
+      stroke-width: 1.6;
+      opacity: 0.8;
+      transition: all 0.4s ease;
+    }
+
+    .social a:hover .icon {
+      stroke: #111;
+      opacity: 1;
+    }
+
+    /* ANIMATION */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(34px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes floatSlow {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-16px); }
+      100% { transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      header { grid-template-columns: 1fr; }
+      .hero-text h1 { font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <img src="ovnly-logo.png" alt="OVNLY" />
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#article">Article</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<header id="home">
+  <div class="hero-text">
+    <h1>Be Your Own.</h1>
+    <p>
+      OVNLY adalah brand fashion modern–minimalist yang berdiri di atas keberanian untuk membentuk identitas
+      tanpa mengikuti standar sosial.
+    </p>
+    <div class="cta">
+      <a href="#article" class="btn">View Archive</a>
+      <a href="#about" class="btn">About OVNLY</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <img src="refraction.png" alt="OVNLY Visual" />
+  </div>
+</header>
+
+<section class="philosophy" id="about">
+  <h2>The Philosophy</h2>
+  <p>
+    OVNLY lahir dari ketidaksepahaman terhadap dunia yang terus mendikte bagaimana seseorang seharusnya
+    terlihat, bertindak, dan merasa. Di antara kebisingan tren dan ekspektasi sosial, OVNLY memilih diam —
+    lalu berdiri dengan sikap.
+  </p>
+  <p>
+    Simbol Ø menjadi inti identitas visual OVNLY. Ia melambangkan batas prinsip: lingkaran tertutup dari
+    tekanan eksternal, namun kosong di dalam — memberi ruang bagi pemiliknya untuk mengisi makna sendiri.
+  </p>
+  <p>
+    Monokrom dan tipografi tegas mencerminkan ketenangan, kepercayaan diri, dan sifat timeless. OVNLY tidak
+    dirancang untuk satu musim, melainkan untuk fase kehidupan.
+  </p>
+  <p>
+    <strong>The Human Archive</strong> adalah fondasi naratif brand: sebuah dokumentasi emosional tentang
+    ambisi, luka, cinta yang samar, dan pikiran yang tidak pernah sepenuhnya rapi.
+  </p>
+  <p><em>"A curated documentation of being."</em></p>
+</section>
+
+<section class="collection" id="article">
+  <h2>Vague Affection</h2>
+  <span>THE HUMAN ARCHIVE — Vol.1</span>
+
+  <div class="mockup">
+    <img src="mockup fck love.png" alt="OVNLY T-shirt" />
+  </div>
+</section>
+
+<footer>
+  <div>
+    <h4>OVNLY</h4>
+    <p>Modern–minimalist fashion label.<br/>Love isn’t gentle. Identity isn’t given.</p>
+  </div>
+
+  <div>
+    <h4>Connect</h4>
+    <div class="social">
+      <a href="https://www.instagram.com/ovnlyofficial?igsh=M3BtYzA0YTQyeXI4&utm_source=qr" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5.3a4.7 4.7 0 100 9.4 4.7 4.7 0 000-9.4zm6.1-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/>
+        </svg>
+      </a>
+
+      <a href="https://www.tiktok.com/@ovnlyofficial?_r=1&_t=ZS-92eWzPzNCF7" target="_blank" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16.5 3c.5 1.9 1.9 3.4 3.7 3.8v3.2c-1.6 0-3.1-.5-4.4-1.3v6.2a5.4 5.4 0 11-5.4-5.4c.3 0 .7 0 1 .1v3.4a2.1 2.1 0 10 1.6 2V3h3.5z"/>
+        </svg>
+      </a>
+
+      <a href="https://wa.me/message/OUIQ5XRB5I3UI1" target="_blank" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3a8.2 8.2 0 1115-4.2A8.2 8.2 0 0112 20.2zm4.5-6.1c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.6.1-.2.2-.7.7-.8.9-.1.1-.3.2-.5.1a6.7 6.7 0 01-2-1.3 7.5 7.5 0 01-1.4-1.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3.2-.5 0-.2 0-.4-.1-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.6 1 2.8c.1.2 1.8 2.8 4.3 3.9.6.3 1.1.5 1.5.6.6.2 1.1.2 1.5.1.5-.1 1.3-.6 1.5-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.1-.4-.2z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div>
+    <h4>Statement</h4>
+    <p>OVNLY — Be Your Own.</p>
+  </div>
+</footer>
+
+</body>
+</html>
