@@ -7,7 +7,8 @@
 
   <meta name="description" content="OVNLY — Be Your Own. Modern-minimalist fashion brand. The Human Archive." />
   <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://domainkamu.com/" />
+  <!-- canonical aman untuk GitHub Pages project (isi sesuai repo kamu) -->
+  <link rel="canonical" href="https://nvla-dev.github.io/ovnlyofc/" />
   <meta name="theme-color" content="#0b1014" />
 
   <style>
@@ -28,7 +29,6 @@
 
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth}
-
     body{
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji";
       background:
@@ -187,6 +187,7 @@
       transform:translateZ(0);
       animation: floatSlow 9s ease-in-out infinite;
       border:1px solid rgba(255,255,255,.06);
+      display:block;
     }
     .hero-art::after{
       content:"";
@@ -235,7 +236,6 @@
       margin-bottom:2.2rem;
     }
 
-    /* FEATURE CARDS */
     .cards{
       display:grid;
       grid-template-columns:repeat(2, minmax(0, 1fr));
@@ -325,17 +325,35 @@
       font-size:.98rem;
     }
 
-    /* MOCKUP */
     .mockup{margin-top:3.2rem; display:grid; place-items:center;}
-    .mockup img{
+
+    /* Fallback container untuk gambar supaya kalau fail tetap rapi */
+    .imgbox{
       width:100%;
       max-width:980px;
       border-radius:var(--radius-xl);
-      box-shadow:var(--shadow-strong);
+      overflow:hidden;
       border:1px solid rgba(255,255,255,.06);
+      box-shadow:var(--shadow-strong);
+      background:rgba(255,255,255,.02);
+      position:relative;
     }
+    .imgbox img{
+      width:100%;
+      display:block;
+    }
+    .imgbox .fallback{
+      display:none;
+      padding:22px 20px;
+      color:rgba(237,237,237,.7);
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      font-size:.78rem;
+    }
+    .imgbox.is-failed .fallback{display:block;}
+    .imgbox.is-failed img{display:none;}
 
-    /* ARTICLES INLINE (simple + mahal) */
+    /* Articles */
     .article-grid{
       margin-top:2.4rem;
       display:grid;
@@ -439,7 +457,6 @@
       display:block;
     }
 
-    /* Reveal */
     .reveal{opacity:0; transform:translateY(18px); transition:opacity .85s ease, transform .85s ease;}
     .reveal.show{opacity:1; transform:translateY(0);}
 
@@ -449,7 +466,6 @@
       100%{transform:translateY(0)}
     }
 
-    /* FOOTER */
     footer{padding:5.2rem 0;}
     .footer-grid{
       display:grid;
@@ -519,7 +535,8 @@
   <nav>
     <div class="wrap nav-inner">
       <a class="brand" href="#home" aria-label="OVNLY Home">
-        <img src="ovnly-logo.png" alt="OVNLY" />
+        <!-- PENTING: relative path -->
+        <img src="./ovnly-logo.png" alt="OVNLY" />
         <small>The Human Archive</small>
       </a>
 
@@ -549,7 +566,8 @@
       </div>
 
       <div class="hero-art reveal" style="transition-delay:120ms;">
-        <img src="refraction.png" alt="OVNLY Visual" loading="eager" />
+        <!-- PENTING: relative path -->
+        <img src="./refraction.png" alt="OVNLY Visual" loading="eager" />
       </div>
     </div>
   </header>
@@ -559,7 +577,7 @@
       <div class="wrap">
         <h2 class="section-title reveal">Feature</h2>
         <div class="note reveal" style="transition-delay:90ms;">
-          Klik card untuk langsung buka artikel (simple, premium, no archive).
+          Klik card untuk langsung buka artikel.
         </div>
 
         <div class="cards">
@@ -589,7 +607,11 @@
         </div>
 
         <div class="mockup">
-          <img class="reveal" style="transition-delay:220ms;" src="mockup-fck-love.png" alt="OVNLY T-shirt" loading="lazy" />
+          <!-- anti gagal: ada fallback box -->
+          <div class="imgbox reveal" style="transition-delay:220ms;" data-imgbox>
+            <img src="./mockup-fck-love.png" alt="OVNLY T-shirt" loading="lazy" />
+            <div class="fallback">Gambar tidak terbaca: mockup-fck-love.png (cek nama file di repo)</div>
+          </div>
         </div>
       </div>
     </section>
@@ -598,7 +620,7 @@
       <div class="wrap">
         <h2 class="section-title reveal">Articles</h2>
         <div class="note reveal" style="transition-delay:90ms;">
-          Klik judul untuk expand. Saat dibuka, gambar langsung muncul (Vol.1 & Vol.2).
+          Klik judul untuk expand. Saat dibuka, gambar langsung muncul.
         </div>
 
         <div class="article-grid">
@@ -617,8 +639,7 @@
             <div class="article-body">
               <p class="pull">“Yang samar bukan berarti tidak nyata. Kadang, itu hanya cara paling aman untuk tetap hidup.”</p>
 
-              <!-- GAMBAR ARTIKEL 1 (pakai refraction.png biar pasti ada) -->
-              <img src="mockup-fck-love.png" alt="Vague Affection" class="article-img" loading="lazy">
+              <img src="./mockup-fck-love.png" alt="Vague Affection" class="article-img" loading="lazy" onerror="this.replaceWith(fallbackEl('Gambar tidak terbaca: mockup-fck-love.png'))">
 
               <p>
                 Vague Affection adalah potongan perasaan yang tidak pernah benar-benar punya bentuk. Ia hadir sebagai
@@ -645,7 +666,7 @@
             <div class="article-body">
               <p class="pull">live without going with the flow, without validation.</p>
 
-              <img src="own-your-only-way.png" alt="OWN YOUR ONLY WAY" class="article-img" loading="lazy">
+              <img src="./own-your-only-way.png" alt="OWN YOUR ONLY WAY" class="article-img" loading="lazy" onerror="this.replaceWith(fallbackEl('Gambar tidak terbaca: own-your-only-way.png'))">
 
               <p>
                 Ini adalah pernyataan yang sederhana tapi tegas: kamu tidak perlu ikut arus untuk dianggap “benar”.
@@ -733,7 +754,23 @@
   </footer>
 
   <script>
-    // Reveal
+    // fallback element untuk onerror img
+    function fallbackEl(text){
+      const d = document.createElement('div');
+      d.style.border = '1px solid rgba(255,255,255,.10)';
+      d.style.borderRadius = '18px';
+      d.style.padding = '16px 14px';
+      d.style.margin = '.2rem 0 1.1rem';
+      d.style.background = 'rgba(255,255,255,.02)';
+      d.style.color = 'rgba(237,237,237,.72)';
+      d.style.letterSpacing = '1.5px';
+      d.style.textTransform = 'uppercase';
+      d.style.fontSize = '.78rem';
+      d.textContent = text;
+      return d;
+    }
+
+    // Reveal anim
     const els = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -748,9 +785,7 @@
     // Active nav
     const links = document.querySelectorAll('[data-link]');
     const sections = ['home','feature','articles','about'].map(id => document.getElementById(id)).filter(Boolean);
-    const setActive = (id) => {
-      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
-    };
+    const setActive = (id) => links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
     const ioNav = new IntersectionObserver((entries) => {
       const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
       if (visible && visible.target && visible.target.id) setActive(visible.target.id);
@@ -775,15 +810,11 @@
       const target = document.getElementById(id);
       if (!target) return;
 
-      // close all
       document.querySelectorAll('details.article').forEach(d => {
         if (d.id !== id) d.open = false;
       });
 
-      // open target
       target.open = true;
-
-      // smooth scroll
       const y = target.getBoundingClientRect().top + window.scrollY - 110;
       window.scrollTo({ top: y, behavior: 'smooth' });
     };
@@ -795,6 +826,13 @@
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
       });
+    });
+
+    // Anti gagal: kalau gambar utama mockup fail, tampilkan fallback
+    document.querySelectorAll('[data-imgbox]').forEach(box => {
+      const img = box.querySelector('img');
+      if (!img) return;
+      img.addEventListener('error', () => box.classList.add('is-failed'));
     });
   </script>
 </body>
