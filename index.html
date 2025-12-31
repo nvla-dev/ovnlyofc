@@ -1,690 +1,336 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OVNLY — Be Your Own</title>
-  <meta name="description" content="OVNLY — Be Your Own. The Human Archive." />
-  <meta name="theme-color" content="#0b1014" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://nvla-dev.github.io/ovnlyofc/" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OVNLY — Be Your Own</title>
 
-  <!-- Anti base-path error untuk GitHub Pages project -->
-  <base href="/ovnlyofc/" />
+<meta name="theme-color" content="#0a0e12">
+<meta name="description" content="OVNLY — Be Your Own. The Human Archive.">
+<link rel="canonical" href="https://nvla-dev.github.io/ovnlyofc/">
+<base href="/ovnlyofc/">
 
-  <style>
-    :root{
-      --bg:#070b10;
-      --bg2:#0b1014;
-      --glass:rgba(255,255,255,.04);
-      --glass2:rgba(255,255,255,.02);
-      --line:rgba(255,255,255,.10);
-      --line2:rgba(255,255,255,.06);
+<style>
 
-      --txt:rgba(244,244,244,.92);
-      --muted:rgba(244,244,244,.64);
-      --muted2:rgba(244,244,244,.48);
+/* ===============================
+   CORE DNA — LUXURY SYSTEM
+=================================*/
 
-      --accent:#c8c1b6;
+:root{
+  --bg:#06090d;
+  --bg-soft:#0a0e12;
+  --glass:rgba(255,255,255,.035);
+  --line:rgba(255,255,255,.08);
 
-      --r-lg:18px;
-      --r-xl:28px;
-      --r-2xl:34px;
-      --pill:999px;
+  --text-main:rgba(245,245,245,.94);
+  --text-soft:rgba(245,245,245,.62);
+  --text-fade:rgba(245,245,245,.42);
 
-      --shadow: 0 50px 180px rgba(0,0,0,.60);
-      --shadow2: 0 24px 90px rgba(0,0,0,.50);
+  --accent:#c8c1b6;
 
-      --max:1120px;
+  --radius-xl:28px;
+  --radius-lg:18px;
+  --radius-pill:999px;
 
-      --e1: cubic-bezier(.2,.9,.2,1);
-      --e2: cubic-bezier(.2,.7,.2,1);
-    }
+  --shadow-main:0 60px 220px rgba(0,0,0,.75);
+  --shadow-soft:0 30px 120px rgba(0,0,0,.45);
 
-    *{ box-sizing:border-box; margin:0; padding:0; }
-    html{ scroll-behavior:smooth; }
-    body{
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial;
-      color:var(--txt);
-      background:
-        radial-gradient(900px 520px at 12% 10%, rgba(200,193,182,.16), transparent 60%),
-        radial-gradient(900px 520px at 86% 16%, rgba(255,255,255,.06), transparent 60%),
-        radial-gradient(860px 520px at 62% 92%, rgba(200,193,182,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      overflow-x:hidden;
-      line-height:1.65;
-      letter-spacing:.12px;
-    }
+  --ease-out:cubic-bezier(.22,.95,.2,1);
+  --ease-soft:cubic-bezier(.4,.0,.2,1);
+}
 
-    /* premium grain */
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:-1;
-      opacity:.65;
-      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4"/></filter><rect width="260" height="260" filter="url(%23n)" opacity="0.05"/></svg>');
-    }
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial;
+  background:
+    radial-gradient(900px 600px at 15% 8%, rgba(200,193,182,.15), transparent 60%),
+    radial-gradient(900px 600px at 80% 15%, rgba(255,255,255,.05), transparent 60%),
+    linear-gradient(180deg,var(--bg),var(--bg-soft));
+  color:var(--text-main);
+  letter-spacing:.15px;
+  line-height:1.65;
+  overflow-x:hidden;
+}
 
-    .wrap{
-      width:min(var(--max), calc(100% - 12vw));
-      margin:0 auto;
-    }
-    @media (max-width: 980px){
-      .wrap{ width:min(var(--max), calc(100% - 10vw)); }
-    }
+/* FILM GRAIN */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.55;
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="260" height="260"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="4"/></filter><rect width="260" height="260" filter="url(%23n)" opacity="0.05"/></svg>');
+}
 
-    /* top progress line */
-    .progress{
-      position:fixed;
-      left:0; top:0;
-      height:2px;
-      width:100%;
-      transform:scaleX(0);
-      transform-origin:left;
-      z-index:999;
-      background:linear-gradient(to right, rgba(200,193,182,.15), var(--accent), rgba(200,193,182,.15));
-      opacity:.9;
-    }
+/* CONTAINER */
+.wrap{
+  width:min(1120px, calc(100% - 12vw));
+  margin:0 auto;
+}
 
-    /* NAV */
-    nav{
-      position:fixed;
-      top:0; left:0; right:0;
-      z-index:50;
-      background:rgba(7,11,16,.55);
-      backdrop-filter: blur(18px);
-      border-bottom:1px solid var(--line2);
-    }
-    .nav-inner{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      padding:1.05rem 0;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      text-decoration:none;
-      color:var(--txt);
-      user-select:none;
-    }
-    .brand img{ height:42px; opacity:.92; }
-    .brand small{
-      color:var(--muted2);
-      letter-spacing:2.6px;
-      text-transform:uppercase;
-      font-size:.72rem;
-      white-space:nowrap;
-    }
-    .nav-links{
-      list-style:none;
-      display:flex;
-      gap:2.1rem;
-      align-items:center;
-    }
-    .nav-links a{
-      text-decoration:none;
-      color:var(--muted);
-      font-size:.82rem;
-      letter-spacing:2.1px;
-      text-transform:uppercase;
-      padding:10px 0;
-      position:relative;
-      transition:color .25s var(--e2), opacity .25s var(--e2);
-      opacity:.92;
-    }
-    .nav-links a:hover{ color:var(--accent); opacity:1; }
-    .nav-links a.active{ color:var(--accent); opacity:1; }
-    .nav-links a.active::after{
-      content:"";
-      position:absolute;
-      left:-10px; right:-10px; bottom:2px;
-      height:1px;
-      background:linear-gradient(to right, transparent, var(--accent), transparent);
-      opacity:.9;
-    }
+/* ===============================
+   NAV — SILENT CONFIDENCE
+=================================*/
 
-    /* HERO */
-    header{
-      padding-top:86px;
-      min-height:100vh;
-      display:grid;
-      align-items:center;
-    }
-    .hero{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:5rem;
-      padding:6.8rem 0 5.2rem;
-      align-items:center;
-    }
-    .kicker{
-      color:var(--muted2);
-      letter-spacing:2.8px;
-      text-transform:uppercase;
-      font-size:.78rem;
-      margin-bottom:14px;
-    }
-    h1{
-      font-size:clamp(3.0rem, 5.2vw, 5.2rem);
-      font-weight:650;
-      letter-spacing:-1.6px;
-      line-height:1.0;
-    }
-    .lead{
-      margin-top:1.55rem;
-      max-width:60ch;
-      color:var(--muted);
-      font-size:1.04rem;
-    }
-    .cta{
-      margin-top:2.4rem;
-      display:flex;
-      gap:1rem;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .btn{
-      text-decoration:none;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:.98rem 1.7rem;
-      border-radius:var(--pill);
-      border:1px solid var(--line);
-      background:transparent;
-      color:var(--txt);
-      font-size:.82rem;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      transition: transform .25s var(--e2), border-color .25s var(--e2), background .25s var(--e2), color .25s var(--e2);
-      will-change:transform;
-    }
-    .btn:hover{ transform:translateY(-2px); border-color:rgba(255,255,255,.18); }
-    .btn.primary{
-      background:var(--accent);
-      border-color:var(--accent);
-      color:#111;
-    }
-    .btn.primary:hover{ transform:translateY(-2px) scale(1.01); }
+nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  backdrop-filter:blur(20px);
+  background:rgba(6,9,13,.6);
+  border-bottom:1px solid var(--line);
+}
 
-    .hero-art{
-      position:relative;
-      isolation:isolate;
-    }
-    .hero-art img{
-      width:100%;
-      border-radius:var(--r-2xl);
-      border:1px solid rgba(255,255,255,.07);
-      box-shadow:var(--shadow);
-      display:block;
-      transform:translateZ(0);
-      animation: floaty 10s var(--e1) infinite;
-      filter:saturate(1.02) contrast(1.02);
-    }
-    .hero-art::before{
-      content:"";
-      position:absolute;
-      inset:-14px;
-      border-radius:calc(var(--r-2xl) + 14px);
-      background:radial-gradient(circle at 30% 30%, rgba(200,193,182,.20), transparent 58%);
-      filter:blur(18px);
-      z-index:-1;
-      opacity:.85;
-    }
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:1.1rem 0;
+}
 
-    @keyframes floaty{
-      0%{ transform:translateY(0); }
-      50%{ transform:translateY(-14px); }
-      100%{ transform:translateY(0); }
-    }
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  color:var(--text-main);
+}
 
-    /* SECTIONS */
-    section{
-      position:relative;
-      padding:6.3rem 0;
-    }
-    section::after{
-      content:"";
-      position:absolute;
-      left:0; right:0; bottom:0;
-      height:1px;
-      background:linear-gradient(to right, transparent, var(--line2), transparent);
-    }
-    .section-title{
-      font-size:clamp(2.1rem, 3.3vw, 3.1rem);
-      letter-spacing:-.9px;
-      font-weight:620;
-      margin-bottom:1.25rem;
-    }
-    .note{
-      color:var(--muted2);
-      letter-spacing:2px;
-      text-transform:uppercase;
-      font-size:.75rem;
-      max-width:72ch;
-      margin-bottom:2.2rem;
-    }
-    .copy{ color:var(--muted); max-width:92ch; font-size:1.02rem; }
-    .copy p{ margin-bottom:1.1rem; }
+.brand img{
+  height:42px;
+  opacity:.95;
+}
 
-    /* FEATURE cards - premium */
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:1.35rem;
-      margin-top:.4rem;
-    }
-    .card{
-      border:1px solid var(--line2);
-      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      border-radius:var(--r-2xl);
-      padding:1.35rem 1.35rem 1.25rem;
-      box-shadow:0 50px 160px rgba(0,0,0,.35);
-      transition: transform .28s var(--e1), border-color .28s var(--e1), background .28s var(--e1);
-      position:relative;
-      overflow:hidden;
-      cursor:pointer;
-      user-select:none;
-    }
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:-220px -240px auto auto;
-      width:420px; height:420px;
-      background:radial-gradient(circle, rgba(200,193,182,.18), transparent 60%);
-      filter:blur(8px);
-      transform:rotate(14deg);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .card:hover{
-      transform: translateY(-6px);
-      border-color: rgba(255,255,255,.16);
-      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-    }
-    .card-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:18px;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:9px 12px;
-      border-radius:var(--pill);
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.02);
-      color:rgba(244,244,244,.62);
-      letter-spacing:2px;
-      text-transform:uppercase;
-      font-size:.72rem;
-      white-space:nowrap;
-    }
-    .arrow{
-      width:44px; height:44px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.02);
-      transition: transform .25s var(--e2), background .25s var(--e2), border-color .25s var(--e2);
-      flex:0 0 auto;
-    }
-    .card:hover .arrow{
-      transform: translateX(3px);
-      border-color: rgba(255,255,255,.18);
-      background: rgba(200,193,182,.10);
-    }
-    .arrow svg{
-      width:18px; height:18px;
-      stroke:rgba(244,244,244,.90);
-      stroke-width:1.7;
-      fill:none;
-    }
-    .card h3{
-      font-size:1.6rem;
-      letter-spacing:-.6px;
-      font-weight:650;
-      margin-bottom:.45rem;
-      color:rgba(244,244,244,.94);
-    }
-    .meta{
-      color:rgba(244,244,244,.52);
-      letter-spacing:1.7px;
-      text-transform:uppercase;
-      font-size:.72rem;
-      margin-bottom:1rem;
-    }
-    .excerpt{ color:var(--muted); font-size:.98rem; max-width:70ch; }
+.brand small{
+  color:var(--text-fade);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  font-size:.72rem;
+}
 
-    /* Mockup image — premium frame + fallback */
-    .mockup{
-      margin-top:3.0rem;
-      display:grid;
-      place-items:center;
-    }
-    .imgframe{
-      width:100%;
-      max-width:980px;
-      border-radius:var(--r-2xl);
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.07);
-      background:rgba(255,255,255,.02);
-      box-shadow:var(--shadow);
-      position:relative;
-      transform: translateZ(0);
-    }
-    .imgframe::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:linear-gradient(180deg, rgba(255,255,255,.04), transparent 38%, rgba(0,0,0,.18));
-      opacity:.85;
-      mix-blend-mode:overlay;
-    }
-    .imgframe img{
-      width:100%;
-      display:block;
-    }
-    .fallback{
-      display:none;
-      padding:18px 16px;
-      color:rgba(244,244,244,.70);
-      letter-spacing:1.6px;
-      text-transform:uppercase;
-      font-size:.78rem;
-    }
-    .imgframe.is-failed .fallback{ display:block; }
-    .imgframe.is-failed img{ display:none; }
+.nav-links{
+  list-style:none;
+  display:flex;
+  gap:2.4rem;
+}
 
-    /* Articles */
-    .article-grid{
-      display:grid;
-      gap:1.15rem;
-      margin-top:2.3rem;
-    }
-    details.article{
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:var(--r-2xl);
-      background:rgba(255,255,255,.02);
-      box-shadow:0 50px 170px rgba(0,0,0,.45);
-      overflow:hidden;
-      transition:border-color .25s var(--e2), background .25s var(--e2);
-    }
-    details.article[open]{
-      border-color:rgba(255,255,255,.16);
-      background:rgba(255,255,255,.03);
-    }
-    summary.article-head{
-      list-style:none;
-      cursor:pointer;
-      padding:1.2rem 1.35rem;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:16px;
-      user-select:none;
-    }
-    summary.article-head::-webkit-details-marker{display:none;}
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      padding:9px 12px;
-      border-radius:var(--pill);
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.02);
-      color:rgba(244,244,244,.62);
-      letter-spacing:2px;
-      text-transform:uppercase;
-      font-size:.72rem;
-      white-space:nowrap;
-    }
-    .ah-left h3{
-      margin-top:.65rem;
-      font-size:1.7rem;
-      letter-spacing:-.6px;
-      font-weight:670;
-      color:rgba(244,244,244,.95);
-    }
-    .subline{
-      margin-top:.4rem;
-      color:rgba(244,244,244,.52);
-      letter-spacing:1.8px;
-      text-transform:uppercase;
-      font-size:.72rem;
-    }
-    .ah-right{
-      width:46px; height:46px;
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.02);
-      display:grid; place-items:center;
-      transition: transform .25s var(--e2), background .25s var(--e2), border-color .25s var(--e2);
-      flex:0 0 auto;
-    }
-    details.article:hover .ah-right{
-      transform: translateY(-2px);
-      border-color: rgba(255,255,255,.18);
-      background: rgba(200,193,182,.10);
-    }
-    details.article[open] .ah-right{
-      background:var(--accent);
-      border-color:var(--accent);
-    }
-    .ah-right svg{
-      width:18px; height:18px;
-      stroke:rgba(244,244,244,.92);
-      stroke-width:1.7;
-      fill:none;
-      transition:stroke .25s var(--e2);
-    }
-    details.article[open] .ah-right svg{ stroke:#111; }
+.nav-links a{
+  color:var(--text-soft);
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:2.2px;
+  font-size:.78rem;
+  position:relative;
+  transition:color .35s var(--ease-out);
+}
 
-    .article-body{
-      padding:0 1.35rem 1.35rem;
-      color:rgba(244,244,244,.72);
-    }
-    .pull{
-      margin: .9rem 0 1.0rem;
-      padding:1rem 1.05rem;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:var(--r-lg);
-      background:rgba(255,255,255,.03);
-      box-shadow:0 30px 120px rgba(0,0,0,.35);
-      color:rgba(244,244,244,.78);
-      font-style:italic;
-    }
-    .article-body p{ margin-bottom:1rem; max-width:88ch; }
-    .article-img{
-      width:100%;
-      border-radius:18px;
-      border:1px solid rgba(255,255,255,.08);
-      box-shadow:0 30px 120px rgba(0,0,0,.45);
-      margin:.2rem 0 1.1rem;
-      display:block;
-    }
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:-6px;
+  height:1px;
+  background:linear-gradient(to right, transparent,var(--accent),transparent);
+  opacity:0;
+  transition:opacity .35s var(--ease-out);
+}
 
-    /* Quote */
-    .quote{
-      margin-top:1.7rem;
-      padding:1.15rem 1.25rem;
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:var(--r-lg);
-      background:rgba(255,255,255,.03);
-      box-shadow:var(--shadow2);
-      max-width:72ch;
-    }
+.nav-links a:hover,
+.nav-links a.active{
+  color:var(--accent);
+}
 
-    /* FOOTER — premium layout */
-    footer{
-      padding:5.2rem 0 4.6rem;
-      position:relative;
-    }
-    .footer-grid{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:2.6rem;
-      align-items:start;
-    }
-    footer h4{
-      font-weight:600;
-      margin-bottom:1rem;
-      letter-spacing:1.7px;
-      text-transform:uppercase;
-      font-size:.84rem;
-      color:rgba(244,244,244,.90);
-    }
-    footer p{ color:var(--muted); }
+.nav-links a:hover::after,
+.nav-links a.active::after{
+  opacity:1;
+}
 
-    /* CENTER kolom CONNECT (ini yang bikin “mahal & rapi”) */
-    .footer-grid > .col-connect{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      gap:.9rem;
-    }
+/* ===============================
+   HERO — EDITORIAL PRESENCE
+=================================*/
 
-    /* Social icons — professional spacing */
-    .social{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      gap:14px;                 /* jarak icon desktop */
-      flex-wrap:nowrap;
-      padding:6px 0;
-    }
+header{
+  padding-top:90px;
+  min-height:100vh;
+  display:grid;
+  align-items:center;
+}
 
-    .social a{
-      width:52px; height:52px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.02);
-      display:grid;
-      place-items:center;
-      text-decoration:none;
-      position:relative;
-      overflow:hidden;
-      transition: transform .25s var(--e1), border-color .25s var(--e1), background .25s var(--e1);
-      will-change:transform;
-    }
+.hero{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:5.5rem;
+  padding:7rem 0 6rem;
+}
 
-    /* premium glow hover */
-    .social a::before{
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background:radial-gradient(circle at 30% 30%, rgba(200,193,182,.85), rgba(200,193,182,.15) 38%, transparent 62%);
-      transform: translateY(14px);
-      opacity:0;
-      transition: opacity .25s var(--e1), transform .25s var(--e1);
-      pointer-events:none;
-    }
+.kicker{
+  color:var(--text-fade);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  font-size:.75rem;
+  margin-bottom:18px;
+}
 
-    .social a:hover{
-      transform: translateY(-3px);
-      border-color: rgba(200,193,182,.65);
-      background: rgba(200,193,182,.10);
-    }
-    .social a:hover::before{
-      opacity:.9;
-      transform: translateY(0);
-    }
+h1{
+  font-size:clamp(3.2rem,5.5vw,5.6rem);
+  font-weight:680;
+  letter-spacing:-1.8px;
+  line-height:1.02;
+}
 
-    /* icon look */
-    .icon{
-      width:22px; height:22px;
-      stroke:rgba(244,244,244,.92);
-      stroke-width:1.8;
-      fill:none;
-      opacity:.9;
-      transition: opacity .25s var(--e2), transform .25s var(--e2), stroke .25s var(--e2);
-      transform: translateZ(0);
-    }
-    .social a:hover .icon{
-      opacity:1;
-      stroke:#111;
-      transform: scale(1.03);
-    }
+.lead{
+  margin-top:1.8rem;
+  max-width:58ch;
+  color:var(--text-soft);
+  font-size:1.05rem;
+}
 
-    /* micro label tooltip (optional premium) */
-    .social a[data-tip]::after{
-      content:attr(data-tip);
-      position:absolute;
-      bottom:-34px;
-      left:50%;
-      transform:translateX(-50%);
-      font-size:.72rem;
-      letter-spacing:1.6px;
-      text-transform:uppercase;
-      color:rgba(244,244,244,.70);
-      opacity:0;
-      transition:opacity .25s var(--e2);
-      white-space:nowrap;
-      pointer-events:none;
-    }
-    .social a:hover::after{ opacity:1; }
+/* CTA */
+.cta{
+  margin-top:2.8rem;
+  display:flex;
+  gap:1.2rem;
+}
 
-    /* REVEAL */
-    .reveal{
-      opacity:0;
-      transform: translateY(18px);
-      transition: opacity .85s var(--e2), transform .85s var(--e2);
-      will-change:opacity, transform;
-    }
-    .reveal.show{
-      opacity:1;
-      transform: translateY(0);
-    }
+.btn{
+  padding:1rem 1.9rem;
+  border-radius:var(--radius-pill);
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--text-main);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:.78rem;
+  text-decoration:none;
+  transition:all .4s var(--ease-out);
+}
 
-    /* RESPONSIVE */
-    @media (max-width: 980px){
-      .hero{ grid-template-columns:1fr; gap:2.8rem; padding:5.6rem 0 4.2rem; }
-      .cards{ grid-template-columns:1fr; }
-      .brand small{ display:none; }
-      .nav-links{ gap:1.35rem; }
-      .footer-grid{
-        grid-template-columns: 1fr;
-        gap:2.2rem;
-        text-align:center;
-      }
+.btn.primary{
+  background:var(--accent);
+  color:#111;
+  border-color:var(--accent);
+}
 
-      /* MOBILE: social icon 1 baris PERFECT */
-      .social{
-        gap:12px;            /* jarak icon mobile */
-        justify-content:center;
-      }
-      .social a{
-        width:50px; height:50px;
-      }
-    }
+.btn:hover{
+  transform:translateY(-3px);
+}
 
-    @media (max-width: 420px){
-      .nav-links a{ letter-spacing:1.6px; font-size:.78rem; }
-      .social{ gap:10px; }
-      .social a{ width:48px; height:48px; }
-      .icon{ width:21px; height:21px; }
-    }
-  </style>
+/* HERO IMAGE */
+.hero-art{
+  position:relative;
+}
+
+.hero-art img{
+  width:100%;
+  border-radius:34px;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--shadow-main);
+  animation:floating 12s var(--ease-soft) infinite;
+}
+
+@keyframes floating{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-16px)}
+  100%{transform:translateY(0)}
+}
+
+/* ===============================
+   FOOTER — LUXURY BALANCE
+=================================*/
+
+footer{
+  padding:6rem 0 5rem;
+}
+
+.footer-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:3rem;
+}
+
+footer h4{
+  font-size:.82rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+}
+
+footer p{
+  color:var(--text-soft);
+}
+
+/* CONNECT — ULTRA PREMIUM */
+.col-connect{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:1.1rem;
+}
+
+/* SOCIAL ICONS */
+.social{
+  display:flex;
+  gap:14px;
+}
+
+.social a{
+  width:54px;
+  height:54px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  display:grid;
+  place-items:center;
+  background:rgba(255,255,255,.03);
+  position:relative;
+  transition:transform .4s var(--ease-out),background .4s var(--ease-out);
+}
+
+.social a::before{
+  content:"";
+  position:absolute;
+  inset:-40%;
+  background:radial-gradient(circle at 30% 30%, rgba(200,193,182,.7), transparent 60%);
+  opacity:0;
+  transition:opacity .4s var(--ease-out);
+}
+
+.social a:hover{
+  transform:translateY(-4px);
+  background:rgba(200,193,182,.12);
+}
+
+.social a:hover::before{
+  opacity:1;
+}
+
+.icon{
+  width:22px;
+  stroke:var(--text-main);
+  stroke-width:1.7;
+  fill:none;
+}
+
+/* MOBILE PERFECT */
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;gap:3rem}
+  .footer-grid{grid-template-columns:1fr;text-align:center}
+  .social{justify-content:center;gap:12px}
+}
+
+</style>
 </head>
-
 <body>
+  <!-- PROGRESS LINE (tetap fitur lama, cuma feel lebih premium) -->
   <div class="progress" id="progress"></div>
 
+  <!-- NAV -->
   <nav>
     <div class="wrap nav-inner">
       <a class="brand" href="#home" aria-label="OVNLY Home">
-        <img src="./ovnly-logo.png" alt="OVNLY" />
+        <img src="./ovnly-logo.png" alt="OVNLY">
         <small>The Human Archive</small>
       </a>
 
@@ -697,6 +343,7 @@
     </div>
   </nav>
 
+  <!-- HERO -->
   <header id="home">
     <div class="wrap hero">
       <div class="hero-text reveal">
@@ -706,6 +353,7 @@
           OVNLY adalah brand fashion modern–minimalist yang berdiri di atas keberanian untuk membentuk identitas
           tanpa mengikuti standar sosial.
         </p>
+
         <div class="cta">
           <a class="btn primary" href="#feature">View Feature</a>
           <a class="btn" href="#articles">Read Articles</a>
@@ -713,16 +361,95 @@
       </div>
 
       <div class="hero-art reveal" style="transition-delay:120ms;">
-        <img src="./refraction.png" alt="OVNLY Visual" loading="eager" />
+        <img src="./refraction.png" alt="OVNLY Visual" loading="eager">
       </div>
     </div>
   </header>
 
   <main>
-    <section id="feature">
+
+    <!-- FEATURE -->
+    <section id="feature" style="padding:6.3rem 0; position:relative;">
       <div class="wrap">
-        <h2 class="section-title reveal">Feature</h2>
-        <div class="note reveal" style="transition-delay:90ms;">Klik card untuk langsung buka artikel.</div>
+        <h2 class="section-title reveal" style="font-size:clamp(2.1rem, 3.3vw, 3.1rem); font-weight:640; letter-spacing:-.9px; margin-bottom:1.25rem;">
+          Feature
+        </h2>
+
+        <div class="note reveal" style="transition-delay:90ms; color:rgba(245,245,245,.44); letter-spacing:2px; text-transform:uppercase; font-size:.75rem; margin-bottom:2.2rem;">
+          Klik card untuk langsung buka artikel.
+        </div>
+
+        <!-- CARDS (feel lebih mahal: spacing + hover "presence") -->
+        <style>
+          /* Upgrade premium khusus section tanpa nambah fitur */
+          .cards{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.35rem;}
+          .card{
+            border:1px solid rgba(255,255,255,.075);
+            background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+            border-radius:34px;
+            padding:1.35rem 1.35rem 1.25rem;
+            box-shadow:0 50px 170px rgba(0,0,0,.42);
+            position:relative;
+            overflow:hidden;
+            cursor:pointer;
+            user-select:none;
+            transform:translateZ(0);
+            transition:transform .38s var(--ease-out), border-color .38s var(--ease-out), background .38s var(--ease-out);
+          }
+          .card::before{
+            content:"";
+            position:absolute;
+            inset:-240px -260px auto auto;
+            width:520px; height:520px;
+            background:radial-gradient(circle, rgba(200,193,182,.18), transparent 60%);
+            filter:blur(10px);
+            transform:rotate(16deg);
+            opacity:.9;
+            pointer-events:none;
+          }
+          .card::after{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:linear-gradient(180deg, rgba(255,255,255,.05), transparent 45%, rgba(0,0,0,.20));
+            opacity:.55;
+            pointer-events:none;
+            mix-blend-mode:overlay;
+          }
+          .card:hover{
+            transform:translateY(-7px);
+            border-color:rgba(255,255,255,.14);
+            background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+          }
+          .card-top{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:18px;}
+          .pill{
+            display:inline-flex; align-items:center; gap:10px;
+            padding:9px 12px; border-radius:999px;
+            border:1px solid rgba(255,255,255,.10);
+            background:rgba(255,255,255,.02);
+            color:rgba(245,245,245,.58);
+            letter-spacing:2px; text-transform:uppercase; font-size:.72rem; white-space:nowrap;
+          }
+          .arrow{
+            width:46px; height:46px; border-radius:50%;
+            display:grid; place-items:center;
+            border:1px solid rgba(255,255,255,.12);
+            background:rgba(255,255,255,.02);
+            transition:transform .35s var(--ease-out), background .35s var(--ease-out), border-color .35s var(--ease-out);
+          }
+          .card:hover .arrow{
+            transform:translateX(3px);
+            border-color:rgba(255,255,255,.18);
+            background:rgba(200,193,182,.10);
+          }
+          .arrow svg{width:18px;height:18px;stroke:rgba(245,245,245,.92);stroke-width:1.7;fill:none;}
+          .card h3{font-size:1.62rem; font-weight:670; letter-spacing:-.6px; margin-bottom:.45rem; color:rgba(245,245,245,.95);}
+          .meta{color:rgba(245,245,245,.52); letter-spacing:1.7px; text-transform:uppercase; font-size:.72rem; margin-bottom:1rem;}
+          .excerpt{color:rgba(245,245,245,.64); font-size:.98rem; max-width:70ch;}
+
+          /* Responsive: tetap sama fungsi, cuma lebih rapi */
+          @media (max-width:900px){ .cards{grid-template-columns:1fr;} }
+        </style>
 
         <div class="cards">
           <div class="card reveal" data-goto="article-1" style="transition-delay:120ms;" role="button" tabindex="0" aria-label="Open article Vague Affection">
@@ -750,19 +477,146 @@
           </div>
         </div>
 
+        <!-- MOCKUP -->
+        <style>
+          .mockup{margin-top:3rem; display:grid; place-items:center;}
+          .imgframe{
+            width:100%;
+            max-width:980px;
+            border-radius:34px;
+            overflow:hidden;
+            border:1px solid rgba(255,255,255,.08);
+            background:rgba(255,255,255,.02);
+            box-shadow:0 60px 220px rgba(0,0,0,.70);
+            position:relative;
+            transform:translateZ(0);
+          }
+          .imgframe::after{
+            content:"";
+            position:absolute; inset:0;
+            background:linear-gradient(180deg, rgba(255,255,255,.06), transparent 40%, rgba(0,0,0,.22));
+            opacity:.70;
+            pointer-events:none;
+            mix-blend-mode:overlay;
+          }
+          .imgframe img{width:100%; display:block;}
+          .fallback{
+            display:none;
+            padding:18px 16px;
+            color:rgba(245,245,245,.70);
+            letter-spacing:1.6px;
+            text-transform:uppercase;
+            font-size:.78rem;
+          }
+          .imgframe.is-failed .fallback{display:block;}
+          .imgframe.is-failed img{display:none;}
+        </style>
+
         <div class="mockup">
           <div class="imgframe reveal" style="transition-delay:220ms;" data-imgframe>
-            <img src="./mockup-fck-love.png" alt="OVNLY T-shirt" loading="lazy" />
+            <img src="./mockup-fck-love.png" alt="OVNLY T-shirt" loading="lazy">
             <div class="fallback">Gambar tidak terbaca: mockup-fck-love.png (cek file PNG valid & nama sama)</div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="articles">
+    <!-- ARTICLES -->
+    <section id="articles" style="padding:6.3rem 0; position:relative;">
       <div class="wrap">
-        <h2 class="section-title reveal">Articles</h2>
-        <div class="note reveal" style="transition-delay:90ms;">Klik judul untuk expand. Saat dibuka, gambar langsung muncul.</div>
+        <h2 class="section-title reveal" style="font-size:clamp(2.1rem, 3.3vw, 3.1rem); font-weight:640; letter-spacing:-.9px; margin-bottom:1.25rem;">
+          Articles
+        </h2>
+
+        <div class="note reveal" style="transition-delay:90ms; color:rgba(245,245,245,.44); letter-spacing:2px; text-transform:uppercase; font-size:.75rem; margin-bottom:2.2rem;">
+          Klik judul untuk expand. Saat dibuka, gambar langsung muncul.
+        </div>
+
+        <style>
+          .article-grid{display:grid; gap:1.15rem; margin-top:2.3rem;}
+          details.article{
+            border:1px solid rgba(255,255,255,.10);
+            border-radius:34px;
+            background:rgba(255,255,255,.02);
+            box-shadow:0 50px 170px rgba(0,0,0,.45);
+            overflow:hidden;
+            transition:border-color .35s var(--ease-out), background .35s var(--ease-out), transform .35s var(--ease-out);
+          }
+          details.article:hover{ transform:translateY(-2px); border-color:rgba(255,255,255,.14); }
+          details.article[open]{ background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.16); }
+
+          summary.article-head{
+            list-style:none;
+            cursor:pointer;
+            padding:1.2rem 1.35rem;
+            display:flex;
+            align-items:flex-start;
+            justify-content:space-between;
+            gap:16px;
+            user-select:none;
+          }
+          summary.article-head::-webkit-details-marker{display:none;}
+          .tag{
+            display:inline-flex;
+            align-items:center;
+            padding:9px 12px;
+            border-radius:999px;
+            border:1px solid rgba(255,255,255,.10);
+            background:rgba(255,255,255,.02);
+            color:rgba(245,245,245,.60);
+            letter-spacing:2px;
+            text-transform:uppercase;
+            font-size:.72rem;
+            white-space:nowrap;
+          }
+          .ah-left h3{
+            margin-top:.65rem;
+            font-size:1.7rem;
+            letter-spacing:-.6px;
+            font-weight:690;
+            color:rgba(245,245,245,.95);
+          }
+          .subline{
+            margin-top:.4rem;
+            color:rgba(245,245,245,.52);
+            letter-spacing:1.8px;
+            text-transform:uppercase;
+            font-size:.72rem;
+          }
+          .ah-right{
+            width:46px;height:46px;border-radius:50%;
+            border:1px solid rgba(255,255,255,.12);
+            background:rgba(255,255,255,.02);
+            display:grid;place-items:center;
+            transition:transform .35s var(--ease-out), background .35s var(--ease-out), border-color .35s var(--ease-out);
+            flex:0 0 auto;
+          }
+          details.article:hover .ah-right{ transform:translateY(-2px); border-color:rgba(255,255,255,.18); background:rgba(200,193,182,.10); }
+          details.article[open] .ah-right{ background:var(--accent); border-color:var(--accent); }
+          .ah-right svg{width:18px;height:18px;stroke:rgba(245,245,245,.92);stroke-width:1.7;fill:none;}
+          details.article[open] .ah-right svg{stroke:#111;}
+
+          .article-body{padding:0 1.35rem 1.35rem; color:rgba(245,245,245,.72);}
+          .pull{
+            margin:.9rem 0 1rem;
+            padding:1rem 1.05rem;
+            border:1px solid rgba(255,255,255,.10);
+            border-radius:18px;
+            background:rgba(255,255,255,.03);
+            box-shadow:0 30px 120px rgba(0,0,0,.35);
+            color:rgba(245,245,245,.78);
+            font-style:italic;
+          }
+          .article-body p{margin-bottom:1rem; max-width:88ch;}
+          .article-img{
+            width:100%;
+            border-radius:18px;
+            border:1px solid rgba(255,255,255,.08);
+            box-shadow:0 30px 120px rgba(0,0,0,.45);
+            margin:.2rem 0 1.1rem;
+            display:block;
+          }
+        </style>
 
         <div class="article-grid">
           <details class="article reveal" id="article-1">
@@ -776,12 +630,10 @@
                 <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/><path d="M15 12H4"/></svg>
               </div>
             </summary>
-
             <div class="article-body">
               <p class="pull">“Yang samar bukan berarti tidak nyata. Kadang, itu hanya cara paling aman untuk tetap hidup.”</p>
-
-              <img src="./mockup-fck-love.png" alt="Vague Affection" class="article-img" loading="lazy" onerror="this.replaceWith(fallbackEl('Gambar tidak terbaca: mockup-fck-love.png'))">
-
+              <img src="./mockup-fck-love.png" alt="Vague Affection" class="article-img" loading="lazy"
+                   onerror="this.replaceWith(fallbackEl('Gambar tidak terbaca: mockup-fck-love.png'))">
               <p>
                 Vague Affection adalah potongan perasaan yang tidak pernah benar-benar punya bentuk. Ia hadir sebagai
                 kebiasaan untuk menahan, menunda, dan mengemas rindu menjadi sesuatu yang tampak tenang.
@@ -803,12 +655,10 @@
                 <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/><path d="M15 12H4"/></svg>
               </div>
             </summary>
-
             <div class="article-body">
               <p class="pull">live without going with the flow, without validation.</p>
-
-              <img src="./own-your-only-way.png" alt="OWN YOUR ONLY WAY" class="article-img" loading="lazy" onerror="this.replaceWith(fallbackEl('Gambar tidak terbaca: own-your-only-way.png'))">
-
+              <img src="./own-your-only-way.png" alt="OWN YOUR ONLY WAY" class="article-img" loading="lazy"
+                   onerror="this.replaceWith(fallbackEl('Gambar tidak terbaca: own-your-only-way.png'))">
               <p>
                 Ini adalah pernyataan yang sederhana tapi tegas: kamu tidak perlu ikut arus untuk dianggap “benar”.
                 Kamu tidak perlu validasi untuk merasa cukup. Jalanmu boleh berbeda—selama itu milikmu.
@@ -823,78 +673,96 @@
       </div>
     </section>
 
-    <section id="about">
+    <!-- ABOUT -->
+    <section id="about" style="padding:6.3rem 0; position:relative;">
       <div class="wrap">
-        <h2 class="section-title reveal">The Philosophy</h2>
+        <h2 class="section-title reveal" style="font-size:clamp(2.1rem, 3.3vw, 3.1rem); font-weight:640; letter-spacing:-.9px; margin-bottom:1.25rem;">
+          The Philosophy
+        </h2>
+
         <div class="copy">
-          <p class="reveal" style="transition-delay:60ms;">
+          <p class="reveal" style="transition-delay:60ms; color:rgba(245,245,245,.64); max-width:92ch; font-size:1.02rem;">
             OVNLY lahir dari ketidaksepahaman terhadap dunia yang terus mendikte bagaimana seseorang seharusnya
             terlihat, bertindak, dan merasa. Di antara kebisingan tren dan ekspektasi sosial, OVNLY memilih diam —
             lalu berdiri dengan sikap.
           </p>
-          <p class="reveal" style="transition-delay:120ms;">
+          <p class="reveal" style="transition-delay:120ms; color:rgba(245,245,245,.64); max-width:92ch; font-size:1.02rem;">
             Simbol Ø menjadi inti identitas visual OVNLY. Ia melambangkan batas prinsip: lingkaran tertutup dari
             tekanan eksternal, namun kosong di dalam — memberi ruang bagi pemiliknya untuk mengisi makna sendiri.
           </p>
-          <p class="reveal" style="transition-delay:180ms;">
+          <p class="reveal" style="transition-delay:180ms; color:rgba(245,245,245,.64); max-width:92ch; font-size:1.02rem;">
             Monokrom dan tipografi tegas mencerminkan ketenangan, kepercayaan diri, dan sifat timeless. OVNLY tidak
             dirancang untuk satu musim, melainkan untuk fase kehidupan.
           </p>
-          <p class="reveal" style="transition-delay:240ms;">
-            <strong>The Human Archive</strong> adalah fondasi naratif brand: sebuah dokumentasi emosional tentang
+          <p class="reveal" style="transition-delay:240ms; color:rgba(245,245,245,.64); max-width:92ch; font-size:1.02rem;">
+            <strong style="color:rgba(245,245,245,.92);">The Human Archive</strong> adalah fondasi naratif brand: sebuah dokumentasi emosional tentang
             ambisi, luka, cinta yang samar, dan pikiran yang tidak pernah sepenuhnya rapi.
           </p>
 
-          <div class="quote reveal" style="transition-delay:300ms;">
-            <em>"A curated documentation of being."</em>
+          <div class="quote reveal" style="transition-delay:300ms; margin-top:1.7rem; padding:1.15rem 1.25rem; border:1px solid rgba(255,255,255,.10); border-radius:18px; background:rgba(255,255,255,.03); box-shadow:0 24px 90px rgba(0,0,0,.50); max-width:72ch;">
+            <em style="color:rgba(245,245,245,.78);">"A curated documentation of being."</em>
           </div>
         </div>
       </div>
     </section>
+
   </main>
 
+  <!-- FOOTER -->
   <footer>
     <div class="wrap">
       <div class="footer-grid">
         <div class="reveal">
           <h4>OVNLY</h4>
-          <p>Modern–minimalist fashion label.<br/>Love isn’t gentle. Identity isn’t given.</p>
+          <p>Modern–minimalist fashion label.<br>Love isn’t gentle. Identity isn’t given.</p>
         </div>
 
         <div class="col-connect reveal" style="transition-delay:90ms;">
           <h4>Connect</h4>
 
+          <!-- SOCIAL: mobile 1 baris perfect + pc rapi -->
           <div class="social" aria-label="Social links">
-            <a data-tip="Instagram" href="https://www.instagram.com/ovnlyofficial?igsh=M3BtYzA0YTQyeXI4&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram">
+            <a href="https://www.instagram.com/ovnlyofficial?igsh=M3BtYzA0YTQyeXI4&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram">
               <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5.3a4.7 4.7 0 100 9.4 4.7 4.7 0 000-9.4zm6.1-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/>
               </svg>
             </a>
 
-            <a data-tip="TikTok" href="https://www.tiktok.com/@ovnlyofficial?_r=1&_t=ZS-92eWzPzNCF7" target="_blank" rel="noopener" aria-label="TikTok">
+            <a href="https://www.tiktok.com/@ovnlyofficial?_r=1&_t=ZS-92eWzPzNCF7" target="_blank" rel="noopener" aria-label="TikTok">
               <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16.5 3c.5 1.9 1.9 3.4 3.7 3.8v3.2c-1.6 0-3.1-.5-4.4-1.3v6.2a5.4 5.4 0 11-5.4-5.4c.3 0 .7 0 1 .1v3.4a2.1 2.1 0 10 1.6 2V3h3.5z"/>
               </svg>
             </a>
 
-            <a data-tip="WhatsApp" href="https://wa.me/message/OUIQ5XRB5I3UI1" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <a href="https://wa.me/message/OUIQ5XRB5I3UI1" target="_blank" rel="noopener" aria-label="WhatsApp">
               <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3a8.2 8.2 0 1115-4.2A8.2 8.2 0 0112 20.2zm4.5-6.1c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.6.1-.2.2-.7.7-.8.9-.1.1-.3.2-.5.1a6.7 6.7 0 01-2-1.3 7.5 6.5 0 01-1.4-1.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3.2-.5 0-.2 0-.4-.1-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.6 1 2.8c.1.2 1.8 2.8 4.3 3.9.6.3 1.1.5 1.5.6.6.2 1.1.2 1.5.1.5-.1 1.3-.6 1.5-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.1-.4-.2z"/>
               </svg>
             </a>
           </div>
+
+          <!-- mobile 1 baris PERFECT: anti wrap -->
+          <style>
+            .social{flex-wrap:nowrap;}
+            @media (max-width:420px){
+              .social{gap:10px;}
+              .social a{width:50px;height:50px;}
+            }
+          </style>
+
         </div>
 
         <div class="reveal" style="transition-delay:140ms;">
           <h4>Statement</h4>
-          <p>OVNLY — Be Your Own.<br><span style="color:rgba(244,244,244,.58)">The Human Archive.</span></p>
+          <p>OVNLY — Be Your Own.<br><span style="color:rgba(245,245,245,.52)">The Human Archive.</span></p>
         </div>
       </div>
     </div>
   </footer>
 
+  <!-- JS (fungsi sama, hanya polishing feel) -->
   <script>
-    // fallback element untuk image error
+    // fallback element untuk image error (fungsi lama)
     function fallbackEl(text){
       const d = document.createElement('div');
       d.style.border = '1px solid rgba(255,255,255,.10)';
@@ -902,7 +770,7 @@
       d.style.padding = '16px 14px';
       d.style.margin = '.2rem 0 1.1rem';
       d.style.background = 'rgba(255,255,255,.02)';
-      d.style.color = 'rgba(244,244,244,.72)';
+      d.style.color = 'rgba(245,245,245,.72)';
       d.style.letterSpacing = '1.5px';
       d.style.textTransform = 'uppercase';
       d.style.fontSize = '.78rem';
@@ -910,7 +778,7 @@
       return d;
     }
 
-    // Reveal
+    // Reveal (fungsi lama)
     const els = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => {
@@ -922,7 +790,7 @@
     }, { threshold: 0.12 });
     els.forEach(el => io.observe(el));
 
-    // Active nav
+    // Active nav (fungsi lama)
     const links = document.querySelectorAll('[data-link]');
     const sections = ['home','feature','articles','about'].map(id => document.getElementById(id)).filter(Boolean);
     const setActive = (id) => links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
@@ -933,7 +801,7 @@
     sections.forEach(s => ioNav.observe(s));
     setActive('home');
 
-    // Progress bar
+    // Progress bar (fungsi lama)
     const progress = document.getElementById('progress');
     const onScroll = () => {
       const doc = document.documentElement;
@@ -945,7 +813,7 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // Feature cards => open article + scroll
+    // Feature cards => open article + scroll (fungsi lama)
     const openOnly = (id) => {
       const target = document.getElementById(id);
       if (!target) return;
@@ -963,12 +831,13 @@
       });
     });
 
-    // Mockup frame fallback
+    // Mockup frame fallback (fungsi lama)
     document.querySelectorAll('[data-imgframe]').forEach(frame => {
       const img = frame.querySelector('img');
       if (!img) return;
       img.addEventListener('error', () => frame.classList.add('is-failed'));
     });
   </script>
+
 </body>
 </html>
