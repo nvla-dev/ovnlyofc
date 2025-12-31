@@ -1,344 +1,801 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OVNLY — Be Your Own</title>
 
-  <!-- META BRAND -->
   <meta name="description" content="OVNLY — Be Your Own. Modern-minimalist fashion brand. The Human Archive." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://domainkamu.com/" />
+  <meta name="theme-color" content="#0b1014" />
 
   <style>
-    :root {
-      --bg-main: #0b1014;
-      --bg-layer: #141b20;
-      --bg-accent: #1d262c;
-      --text-main: #ededed;
-      --text-muted: #9aa3aa;
-      --accent: #c8c1b6;
-      --border-soft: rgba(255,255,255,0.08);
+    :root{
+      --bg-main:#0b1014;
+      --bg-layer:#141b20;
+      --text-main:#ededed;
+      --text-muted:rgba(237,237,237,.62);
+      --accent:#c8c1b6;
+      --border-soft:rgba(255,255,255,.08);
+      --shadow-strong:0 90px 220px rgba(0,0,0,.80);
+      --shadow-soft:0 24px 90px rgba(0,0,0,.55);
+      --radius-xl:28px;
+      --radius-lg:18px;
+      --radius-pill:999px;
+      --max:1120px;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
 
-    body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
+    body{
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji";
       background:
-        radial-gradient(circle at 10% 10%, #1c252c, transparent 40%),
-        radial-gradient(circle at 90% 90%, #0a0f13, transparent 45%),
+        radial-gradient(circle at 10% 10%, #1c252c, transparent 42%),
+        radial-gradient(circle at 90% 90%, #0a0f13, transparent 48%),
         linear-gradient(180deg, var(--bg-main), var(--bg-layer));
-      color: var(--text-main);
-      line-height: 1.65;
-      overflow-x: hidden;
+      color:var(--text-main);
+      line-height:1.65;
+      overflow-x:hidden;
+      letter-spacing:.1px;
     }
 
-    /* FILM GRAIN */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="5"/></filter><rect width="300" height="300" filter="url(%23n)" opacity="0.04"/></svg>');
-      pointer-events: none;
-      z-index: -1;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="280" height="280"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="5"/></filter><rect width="280" height="280" filter="url(%23n)" opacity="0.045"/></svg>');
+      pointer-events:none;
+      z-index:-1;
     }
 
-    /* NAVIGATION */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 1.4rem 6vw;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .progress{
+      position:fixed;
+      top:0; left:0;
+      height:2px;
+      width:100%;
+      transform-origin:left;
+      transform:scaleX(0);
+      background:linear-gradient(to right, rgba(200,193,182,.15), var(--accent), rgba(200,193,182,.15));
+      z-index:999;
+      opacity:.9;
+    }
+
+    .wrap{width:min(var(--max), 100% - 12vw); margin:0 auto;}
+    @media (max-width: 900px){ .wrap{width:min(var(--max), 100% - 10vw);} }
+
+    a:focus-visible, button:focus-visible{
+      outline:2px solid rgba(200,193,182,.55);
+      outline-offset:4px;
+      border-radius:12px;
+    }
+
+    nav{
+      position:fixed; top:0; width:100%;
+      z-index:50;
       backdrop-filter: blur(18px);
       background: rgba(11,16,20,0.55);
-      border-bottom: 1px solid var(--border-soft);
-      z-index: 10;
+      border-bottom:1px solid var(--border-soft);
+    }
+    .nav-inner{
+      padding:1.15rem 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      text-decoration:none; color:var(--text-main);
+      opacity:.96;
+      user-select:none;
+    }
+    .brand img{height:42px; opacity:.92}
+    .brand small{
+      color:var(--text-muted);
+      letter-spacing:2.4px;
+      text-transform:uppercase;
+      font-size:.72rem;
+      white-space:nowrap;
     }
 
-    nav img { height: 42px; opacity: 0.9; }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 2.5rem;
+    .nav-links{
+      list-style:none;
+      display:flex;
+      align-items:center;
+      gap:2.2rem;
+    }
+    .nav-links a{
+      text-decoration:none;
+      color:var(--text-muted);
+      font-size:.82rem;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      transition:all .25s ease;
+      position:relative;
+      padding:10px 0;
+    }
+    .nav-links a:hover{color:var(--accent)}
+    .nav-links a.active{color:var(--accent)}
+    .nav-links a.active::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:2px;
+      height:1px;
+      background:linear-gradient(to right, transparent, var(--accent), transparent);
+      opacity:.9;
     }
 
-    nav a {
-      text-decoration: none;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      transition: all 0.3s;
+    header{padding-top:88px; min-height:100vh; display:grid; align-items:center;}
+    .hero{
+      padding:7.2rem 0 5.2rem;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:5rem;
+      align-items:center;
+    }
+    .kicker{
+      color:var(--text-muted);
+      letter-spacing:2.8px;
+      text-transform:uppercase;
+      font-size:.78rem;
+      margin-bottom:14px;
+    }
+    h1{
+      font-size:clamp(2.8rem, 4.8vw, 4.8rem);
+      font-weight:620;
+      letter-spacing:-1.6px;
+      line-height:1.02;
+    }
+    .lead{
+      margin-top:1.6rem;
+      max-width:58ch;
+      color:var(--text-muted);
+      font-size:1.02rem;
+    }
+    .cta{margin-top:2.6rem; display:flex; gap:1rem; flex-wrap:wrap;}
+    .btn{
+      padding:.95rem 1.7rem;
+      border-radius:var(--radius-pill);
+      border:1px solid var(--border-soft);
+      background:transparent;
+      color:var(--text-main);
+      text-decoration:none;
+      font-size:.82rem;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      transition:transform .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      will-change:transform;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-2px); border-color:rgba(255,255,255,.16);}
+    .btn.primary{
+      background:var(--accent);
+      border-color:var(--accent);
+      color:#111;
     }
 
-    nav a:hover { color: var(--accent); }
-
-    /* HERO */
-    header {
-      min-height: 100vh;
-      padding: 10rem 6vw 6rem;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 6rem;
-      align-items: center;
-    }
-
-    .hero-text h1 {
-      font-size: 4.6rem;
-      font-weight: 600;
-      letter-spacing: -2px;
-      animation: fadeUp 1.2s ease forwards;
-    }
-
-    .hero-text p {
-      margin-top: 2.4rem;
-      max-width: 560px;
-      color: var(--text-muted);
-      animation: fadeUp 1.4s ease forwards;
-    }
-
-    .cta {
-      margin-top: 3.6rem;
-      display: flex;
-      gap: 1.6rem;
-      animation: fadeUp 1.6s ease forwards;
-    }
-
-    .btn {
-      padding: 1rem 2.4rem;
-      border-radius: 999px;
-      border: 1px solid var(--border-soft);
-      background: transparent;
-      color: var(--text-main);
-      text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      transition: all 0.35s ease;
-    }
-
-    .btn:hover {
-      background: var(--accent);
-      color: #111;
-      border-color: var(--accent);
-    }
-
-    .hero-art img {
-      width: 100%;
-      border-radius: 26px;
-      box-shadow: 0 80px 180px rgba(0,0,0,0.75);
+    .hero-art{position:relative;}
+    .hero-art img{
+      width:100%;
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow-strong);
+      transform:translateZ(0);
       animation: floatSlow 9s ease-in-out infinite;
+      border:1px solid rgba(255,255,255,.06);
+    }
+    .hero-art::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius:calc(var(--radius-xl) + 2px);
+      background:radial-gradient(circle at 30% 30%, rgba(200,193,182,.22), transparent 55%);
+      filter:blur(16px);
+      z-index:-1;
+      opacity:.8;
     }
 
-    /* SECTIONS */
-    section {
-      padding: 7rem 6vw;
-      position: relative;
+    section{padding:6.5rem 0; position:relative;}
+    section::after{
+      content:"";
+      position:absolute;
+      left:0; right:0; bottom:0;
+      height:1px;
+      background:linear-gradient(to right, transparent, var(--border-soft), transparent);
+    }
+    .section-title{
+      font-size:clamp(2.0rem, 3.2vw, 3.0rem);
+      letter-spacing:-.8px;
+      margin-bottom:1.4rem;
+      font-weight:600;
+    }
+    .copy{color:var(--text-muted); max-width:92ch; font-size:1.02rem;}
+    .copy p{margin-bottom:1.15rem;}
+
+    .quote{
+      margin-top:1.8rem;
+      padding:1.2rem 1.3rem;
+      border:1px solid var(--border-soft);
+      border-radius:18px;
+      background:rgba(255,255,255,.03);
+      max-width:70ch;
+      box-shadow:var(--shadow-soft);
     }
 
-    section::after {
-      content: "";
-      position: absolute;
-      left: 6vw;
-      right: 6vw;
-      bottom: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border-soft), transparent);
+    .note{
+      color:rgba(237,237,237,.52);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-size:.75rem;
+      max-width:72ch;
+      margin-bottom:2.2rem;
     }
 
-    /* ABOUT */
-    .philosophy h2 {
-      font-size: 2.8rem;
-      margin-bottom: 2rem;
+    /* FEATURE CARDS */
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:1.3rem;
+    }
+    .card{
+      border:1px solid var(--border-soft);
+      background:rgba(255,255,255,.02);
+      border-radius:var(--radius-xl);
+      padding:1.35rem 1.35rem 1.25rem;
+      box-shadow:0 40px 140px rgba(0,0,0,.35);
+      transition:transform .25s ease, border-color .25s ease, background .25s ease;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+      user-select:none;
+    }
+    .card:hover{
+      transform:translateY(-4px);
+      border-color:rgba(255,255,255,.16);
+      background:rgba(255,255,255,.03);
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-120px -120px auto auto;
+      width:260px; height:260px;
+      background:radial-gradient(circle, rgba(200,193,182,.18), transparent 62%);
+      filter:blur(6px);
+      transform:rotate(18deg);
+      pointer-events:none;
+    }
+    .card-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:18px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:9px 12px;
+      border-radius:var(--radius-pill);
+      border:1px solid rgba(255,255,255,.10);
+      color:rgba(237,237,237,.62);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-size:.72rem;
+      background:rgba(255,255,255,.02);
+      white-space:nowrap;
+    }
+    .arrow{
+      width:42px; height:42px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.12);
+      display:grid; place-items:center;
+      transition:transform .25s ease, background .25s ease, border-color .25s ease;
+      background:rgba(255,255,255,.02);
+      flex:0 0 auto;
+    }
+    .card:hover .arrow{
+      transform:translateX(2px);
+      border-color:rgba(255,255,255,.18);
+      background:rgba(200,193,182,.10);
+    }
+    .arrow svg{width:18px; height:18px; stroke:rgba(237,237,237,.88); stroke-width:1.7; fill:none;}
+
+    .card h3{
+      font-size:1.55rem;
+      letter-spacing:-.6px;
+      font-weight:620;
+      margin-bottom:.5rem;
+      color:rgba(237,237,237,.92);
+    }
+    .card .meta{
+      color:rgba(237,237,237,.52);
+      letter-spacing:1.6px;
+      text-transform:uppercase;
+      font-size:.72rem;
+      margin-bottom:1rem;
+    }
+    .card .excerpt{
+      color:var(--text-muted);
+      max-width:70ch;
+      font-size:.98rem;
     }
 
-    .philosophy p {
-      color: var(--text-muted);
-      max-width: 900px;
-      margin-bottom: 1.4rem;
+    /* MOCKUP */
+    .mockup{margin-top:3.2rem; display:grid; place-items:center;}
+    .mockup img{
+      width:100%;
+      max-width:980px;
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow-strong);
+      border:1px solid rgba(255,255,255,.06);
     }
 
-    /* COLLECTION */
-    .collection {
-      text-align: center;
+    /* ARTICLES INLINE (simple + mahal) */
+    .article-grid{
+      margin-top:2.4rem;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:1.1rem;
+    }
+    details.article{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius-xl);
+      background:rgba(255,255,255,.02);
+      box-shadow:0 40px 160px rgba(0,0,0,.45);
+      overflow:hidden;
+    }
+    details.article[open]{
+      border-color:rgba(255,255,255,.16);
+      background:rgba(255,255,255,.03);
     }
 
-    .collection h2 { font-size: 3.2rem; }
-    .collection span { color: var(--text-muted); font-style: italic; }
+    summary.article-head{
+      list-style:none;
+      cursor:pointer;
+      padding:1.2rem 1.35rem;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      user-select:none;
+    }
+    summary.article-head::-webkit-details-marker{display:none;}
 
-    .mockup {
-      margin-top: 5rem;
+    .ah-left .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:9px 12px;
+      border-radius:var(--radius-pill);
+      border:1px solid rgba(255,255,255,.10);
+      color:rgba(237,237,237,.62);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-size:.72rem;
+      background:rgba(255,255,255,.02);
+    }
+    .ah-left h3{
+      margin-top:.65rem;
+      font-size:1.65rem;
+      letter-spacing:-.6px;
+      font-weight:650;
+      color:rgba(237,237,237,.94);
+    }
+    .ah-left .subline{
+      margin-top:.45rem;
+      color:rgba(237,237,237,.52);
+      letter-spacing:1.8px;
+      text-transform:uppercase;
+      font-size:.72rem;
     }
 
-    .mockup img {
-      width: 100%;
-      max-width: 980px;
-      border-radius: 28px;
-      box-shadow: 0 90px 220px rgba(0,0,0,0.8);
+    .ah-right{
+      flex:0 0 auto;
+      width:44px; height:44px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.02);
+      display:grid; place-items:center;
+      transition:transform .25s ease, background .25s ease, border-color .25s ease;
+    }
+    details.article:hover .ah-right{
+      transform:translateY(-2px);
+      border-color:rgba(255,255,255,.18);
+      background:rgba(200,193,182,.10);
+    }
+    .ah-right svg{width:18px;height:18px;stroke:rgba(237,237,237,.9);stroke-width:1.7;fill:none;}
+    details.article[open] .ah-right{
+      background:var(--accent);
+      border-color:var(--accent);
+    }
+    details.article[open] .ah-right svg{stroke:#111}
+
+    .article-body{
+      padding:0 1.35rem 1.35rem;
+      color:rgba(237,237,237,.72);
+    }
+    .article-body .pull{
+      margin: .9rem 0 1.0rem;
+      padding:1rem 1.1rem;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius-lg);
+      background:rgba(255,255,255,.03);
+      box-shadow:0 30px 120px rgba(0,0,0,.35);
+      color:rgba(237,237,237,.78);
+      font-style:italic;
+    }
+    .article-body p{margin-bottom:1rem; max-width:88ch;}
+    .article-img{
+      width:100%;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 30px 120px rgba(0,0,0,.45);
+      margin:.2rem 0 1.1rem;
+      display:block;
+    }
+
+    /* Reveal */
+    .reveal{opacity:0; transform:translateY(18px); transition:opacity .85s ease, transform .85s ease;}
+    .reveal.show{opacity:1; transform:translateY(0);}
+
+    @keyframes floatSlow{
+      0%{transform:translateY(0)}
+      50%{transform:translateY(-14px)}
+      100%{transform:translateY(0)}
     }
 
     /* FOOTER */
-    footer {
-      padding: 6rem 6vw;
-      display: grid;
-      grid-template-columns: 1.6fr 1fr 1fr;
-      gap: 3.5rem;
+    footer{padding:5.2rem 0;}
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.4fr 1fr 1fr;
+      gap:2.6rem;
+      align-items:start;
     }
-
-    footer h4 { font-weight: 500; margin-bottom: 1.2rem; letter-spacing: 1px; }
-    footer p { color: var(--text-muted); }
-
-    .social {
-      display: flex;
-      gap: 1.2rem;
-      margin-top: 1.2rem;
+    footer h4{
+      font-weight:520;
+      margin-bottom:1rem;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:.86rem;
+      color:rgba(237,237,237,.88);
     }
+    footer p{color:var(--text-muted);}
 
-    .social a {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      border: 1px solid var(--border-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.4s ease;
+    .social-center{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-top:1.1rem;
     }
-
-    .social a:hover {
+    .social{
+      display:flex;
+      gap:.9rem;
+      flex-wrap:wrap;
+      justify-content:center;
+      align-items:center;
+    }
+    .social a{
+      width:50px; height:50px;
+      border-radius:50%;
+      border:1px solid var(--border-soft);
+      display:flex; align-items:center; justify-content:center;
+      transition:transform .25s ease, background .25s ease, border-color .25s ease;
+      background:rgba(255,255,255,.02);
+    }
+    .social a:hover{
       background: radial-gradient(circle at 30% 30%, var(--accent), #b7afa3);
       border-color: var(--accent);
-      transform: translateY(-4px);
+      transform: translateY(-3px);
     }
-
-    .icon {
-      width: 22px;
-      fill: none;
-      stroke: var(--text-main);
-      stroke-width: 1.6;
-      opacity: 0.8;
-      transition: all 0.4s ease;
+    .icon{
+      width:22px;
+      fill:none;
+      stroke:var(--text-main);
+      stroke-width:1.6;
+      opacity:.86;
+      transition:all .25s ease;
     }
+    .social a:hover .icon{stroke:#111; opacity:1;}
 
-    .social a:hover .icon {
-      stroke: #111;
-      opacity: 1;
-    }
-
-    /* ANIMATION */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(34px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes floatSlow {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-16px); }
-      100% { transform: translateY(0); }
-    }
-
-    @media (max-width: 900px) {
-      header { grid-template-columns: 1fr; }
-      .hero-text h1 { font-size: 3rem; }
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr; gap:2.8rem; padding:5.6rem 0 4.2rem;}
+      .nav-links{gap:1.4rem;}
+      .cards{grid-template-columns:1fr;}
+      .footer-grid{grid-template-columns:1fr; text-align:center;}
+      .brand small{display:none;}
     }
   </style>
 </head>
+
 <body>
+  <div class="progress" id="progress"></div>
 
-<nav>
-  <img src="ovnly-logo.png" alt="OVNLY" />
-  <ul>
-    <li><a href="#home">Home</a></li>
-    <li><a href="#article">Article</a></li>
-    <li><a href="#about">About</a></li>
-  </ul>
-</nav>
+  <nav>
+    <div class="wrap nav-inner">
+      <a class="brand" href="#home" aria-label="OVNLY Home">
+        <img src="ovnly-logo.png" alt="OVNLY" />
+        <small>The Human Archive</small>
+      </a>
 
-<header id="home">
-  <div class="hero-text">
-    <h1>Be Your Own.</h1>
-    <p>
-      OVNLY adalah brand fashion modern–minimalist yang berdiri di atas keberanian untuk membentuk identitas
-      tanpa mengikuti standar sosial.
-    </p>
-    <div class="cta">
-      <a href="#article" class="btn">View Archive</a>
-      <a href="#about" class="btn">About OVNLY</a>
+      <ul class="nav-links" aria-label="Primary">
+        <li><a href="#home" data-link>Home</a></li>
+        <li><a href="#feature" data-link>Feature</a></li>
+        <li><a href="#articles" data-link>Articles</a></li>
+        <li><a href="#about" data-link>About</a></li>
+      </ul>
     </div>
-  </div>
-  <div class="hero-art">
-    <img src="refraction.png" alt="OVNLY Visual" />
-  </div>
-</header>
+  </nav>
 
-<section class="philosophy" id="about">
-  <h2>The Philosophy</h2>
-  <p>
-    OVNLY lahir dari ketidaksepahaman terhadap dunia yang terus mendikte bagaimana seseorang seharusnya
-    terlihat, bertindak, dan merasa. Di antara kebisingan tren dan ekspektasi sosial, OVNLY memilih diam —
-    lalu berdiri dengan sikap.
-  </p>
-  <p>
-    Simbol Ø menjadi inti identitas visual OVNLY. Ia melambangkan batas prinsip: lingkaran tertutup dari
-    tekanan eksternal, namun kosong di dalam — memberi ruang bagi pemiliknya untuk mengisi makna sendiri.
-  </p>
-  <p>
-    Monokrom dan tipografi tegas mencerminkan ketenangan, kepercayaan diri, dan sifat timeless. OVNLY tidak
-    dirancang untuk satu musim, melainkan untuk fase kehidupan.
-  </p>
-  <p>
-    <strong>The Human Archive</strong> adalah fondasi naratif brand: sebuah dokumentasi emosional tentang
-    ambisi, luka, cinta yang samar, dan pikiran yang tidak pernah sepenuhnya rapi.
-  </p>
-  <p><em>"A curated documentation of being."</em></p>
-</section>
+  <header id="home">
+    <div class="wrap hero">
+      <div class="hero-text reveal">
+        <div class="kicker">Modern–Minimalist Fashion Brand</div>
+        <h1>Be Your Own.</h1>
+        <p class="lead">
+          OVNLY adalah brand fashion modern–minimalist yang berdiri di atas keberanian untuk membentuk identitas
+          tanpa mengikuti standar sosial.
+        </p>
 
-<section class="collection" id="article">
-  <h2>Vague Affection</h2>
-  <span>THE HUMAN ARCHIVE — Vol.1</span>
+        <div class="cta">
+          <a href="#feature" class="btn primary">View Feature</a>
+          <a href="#articles" class="btn">Read Articles</a>
+        </div>
+      </div>
 
-  <div class="mockup">
-    <img src="mockup fck love.png" alt="OVNLY T-shirt" />
-  </div>
-</section>
-
-<footer>
-  <div>
-    <h4>OVNLY</h4>
-    <p>Modern–minimalist fashion label.<br/>Love isn’t gentle. Identity isn’t given.</p>
-  </div>
-
-  <div>
-    <h4>Connect</h4>
-    <div class="social">
-      <a href="https://www.instagram.com/ovnlyofficial?igsh=M3BtYzA0YTQyeXI4&utm_source=qr" target="_blank" aria-label="Instagram">
-        <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
-          <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5.3a4.7 4.7 0 100 9.4 4.7 4.7 0 000-9.4zm6.1-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/>
-        </svg>
-      </a>
-
-      <a href="https://www.tiktok.com/@ovnlyofficial?_r=1&_t=ZS-92eWzPzNCF7" target="_blank" aria-label="TikTok">
-        <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16.5 3c.5 1.9 1.9 3.4 3.7 3.8v3.2c-1.6 0-3.1-.5-4.4-1.3v6.2a5.4 5.4 0 11-5.4-5.4c.3 0 .7 0 1 .1v3.4a2.1 2.1 0 10 1.6 2V3h3.5z"/>
-        </svg>
-      </a>
-
-      <a href="https://wa.me/message/OUIQ5XRB5I3UI1" target="_blank" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3a8.2 8.2 0 1115-4.2A8.2 8.2 0 0112 20.2zm4.5-6.1c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.6.1-.2.2-.7.7-.8.9-.1.1-.3.2-.5.1a6.7 6.7 0 01-2-1.3 7.5 7.5 0 01-1.4-1.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3.2-.5 0-.2 0-.4-.1-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.6 1 2.8c.1.2 1.8 2.8 4.3 3.9.6.3 1.1.5 1.5.6.6.2 1.1.2 1.5.1.5-.1 1.3-.6 1.5-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.1-.4-.2z"/>
-        </svg>
-      </a>
+      <div class="hero-art reveal" style="transition-delay:120ms;">
+        <img src="refraction.png" alt="OVNLY Visual" loading="eager" />
+      </div>
     </div>
-  </div>
+  </header>
 
-  <div>
-    <h4>Statement</h4>
-    <p>OVNLY — Be Your Own.</p>
-  </div>
-</footer>
+  <main>
+    <section id="feature">
+      <div class="wrap">
+        <h2 class="section-title reveal">Feature</h2>
+        <div class="note reveal" style="transition-delay:90ms;">
+          Klik card untuk langsung buka artikel (simple, premium, no archive).
+        </div>
 
+        <div class="cards">
+          <div class="card reveal" data-goto="article-1" style="transition-delay:120ms;" role="button" tabindex="0" aria-label="Open article Vague Affection">
+            <div class="card-top">
+              <div class="pill">FEATURED — Vol.1</div>
+              <div class="arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/><path d="M15 12H4"/></svg>
+              </div>
+            </div>
+            <h3>Vague Affection</h3>
+            <div class="meta">Featured Entry</div>
+            <div class="excerpt">A fragment that stays.</div>
+          </div>
+
+          <div class="card reveal" data-goto="article-2" style="transition-delay:170ms;" role="button" tabindex="0" aria-label="Open article Own Your Only Way">
+            <div class="card-top">
+              <div class="pill">FEATURED — Vol.2</div>
+              <div class="arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/><path d="M15 12H4"/></svg>
+              </div>
+            </div>
+            <h3>OWN YOUR ONLY WAY</h3>
+            <div class="meta">Featured Entry</div>
+            <div class="excerpt">live without going with the flow, without validation.</div>
+          </div>
+        </div>
+
+        <div class="mockup">
+          <img class="reveal" style="transition-delay:220ms;" src="mockup-fck-love.png" alt="OVNLY T-shirt" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <section id="articles">
+      <div class="wrap">
+        <h2 class="section-title reveal">Articles</h2>
+        <div class="note reveal" style="transition-delay:90ms;">
+          Klik judul untuk expand. Saat dibuka, gambar langsung muncul (Vol.1 & Vol.2).
+        </div>
+
+        <div class="article-grid">
+          <details class="article reveal" id="article-1">
+            <summary class="article-head">
+              <div class="ah-left">
+                <div class="tag">THE HUMAN ARCHIVE — Vol.1</div>
+                <h3>Vague Affection</h3>
+                <div class="subline">Archive Entry</div>
+              </div>
+              <div class="ah-right" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/><path d="M15 12H4"/></svg>
+              </div>
+            </summary>
+
+            <div class="article-body">
+              <p class="pull">“Yang samar bukan berarti tidak nyata. Kadang, itu hanya cara paling aman untuk tetap hidup.”</p>
+
+              <!-- GAMBAR ARTIKEL 1 (pakai refraction.png biar pasti ada) -->
+              <img src="mockup-fck-love.png" alt="Vague Affection" class="article-img" loading="lazy">
+
+              <p>
+                Vague Affection adalah potongan perasaan yang tidak pernah benar-benar punya bentuk. Ia hadir sebagai
+                kebiasaan untuk menahan, menunda, dan mengemas rindu menjadi sesuatu yang tampak tenang.
+              </p>
+              <p>
+                Archive ini bukan tentang menjelaskan—melainkan mendokumentasikan: rasa yang lewat, lalu tinggal.
+              </p>
+            </div>
+          </details>
+
+          <details class="article reveal" id="article-2">
+            <summary class="article-head">
+              <div class="ah-left">
+                <div class="tag">THE HUMAN ARCHIVE — Vol.2</div>
+                <h3>OWN YOUR ONLY WAY</h3>
+                <div class="subline">Archive Entry</div>
+              </div>
+              <div class="ah-right" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/><path d="M15 12H4"/></svg>
+              </div>
+            </summary>
+
+            <div class="article-body">
+              <p class="pull">live without going with the flow, without validation.</p>
+
+              <img src="own-your-only-way.png" alt="OWN YOUR ONLY WAY" class="article-img" loading="lazy">
+
+              <p>
+                Ini adalah pernyataan yang sederhana tapi tegas: kamu tidak perlu ikut arus untuk dianggap “benar”.
+                Kamu tidak perlu validasi untuk merasa cukup. Jalanmu boleh berbeda—selama itu milikmu.
+              </p>
+              <p>
+                OWN YOUR ONLY WAY bukan ajakan untuk keras; ini ajakan untuk jujur. Tidak semua orang harus mengerti,
+                dan itu tidak apa-apa.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap">
+        <h2 class="section-title reveal">The Philosophy</h2>
+        <div class="copy">
+          <p class="reveal" style="transition-delay:60ms;">
+            OVNLY lahir dari ketidaksepahaman terhadap dunia yang terus mendikte bagaimana seseorang seharusnya
+            terlihat, bertindak, dan merasa. Di antara kebisingan tren dan ekspektasi sosial, OVNLY memilih diam —
+            lalu berdiri dengan sikap.
+          </p>
+          <p class="reveal" style="transition-delay:120ms;">
+            Simbol Ø menjadi inti identitas visual OVNLY. Ia melambangkan batas prinsip: lingkaran tertutup dari
+            tekanan eksternal, namun kosong di dalam — memberi ruang bagi pemiliknya untuk mengisi makna sendiri.
+          </p>
+          <p class="reveal" style="transition-delay:180ms;">
+            Monokrom dan tipografi tegas mencerminkan ketenangan, kepercayaan diri, dan sifat timeless. OVNLY tidak
+            dirancang untuk satu musim, melainkan untuk fase kehidupan.
+          </p>
+          <p class="reveal" style="transition-delay:240ms;">
+            <strong>The Human Archive</strong> adalah fondasi naratif brand: sebuah dokumentasi emosional tentang
+            ambisi, luka, cinta yang samar, dan pikiran yang tidak pernah sepenuhnya rapi.
+          </p>
+
+          <div class="quote reveal" style="transition-delay:300ms;">
+            <em>"A curated documentation of being."</em>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="reveal">
+          <h4>OVNLY</h4>
+          <p>Modern–minimalist fashion label.<br/>Love isn’t gentle. Identity isn’t given.</p>
+        </div>
+
+        <div class="reveal" style="transition-delay:90ms;">
+          <h4>Connect</h4>
+          <div class="social-center">
+            <div class="social" aria-label="Social links">
+              <a href="https://www.instagram.com/ovnlyofficial?igsh=M3BtYzA0YTQyeXI4&utm_source=qr" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 5.3a4.7 4.7 0 100 9.4 4.7 4.7 0 000-9.4zm6.1-.9a1.1 1.1 0 11-2.2 0 1.1 1.1 0 012.2 0zM12 9a3 3 0 110 6 3 3 0 010-6z"/>
+                </svg>
+              </a>
+
+              <a href="https://www.tiktok.com/@ovnlyofficial?_r=1&_t=ZS-92eWzPzNCF7" target="_blank" rel="noopener" aria-label="TikTok">
+                <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M16.5 3c.5 1.9 1.9 3.4 3.7 3.8v3.2c-1.6 0-3.1-.5-4.4-1.3v6.2a5.4 5.4 0 11-5.4-5.4c.3 0 .7 0 1 .1v3.4a2.1 2.1 0 10 1.6 2V3h3.5z"/>
+                </svg>
+              </a>
+
+              <a href="https://wa.me/message/OUIQ5XRB5I3UI1" target="_blank" rel="noopener" aria-label="WhatsApp">
+                <svg viewBox="0 0 24 24" class="icon" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm0 18.2a8.2 8.2 0 01-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3a8.2 8.2 0 1115-4.2A8.2 8.2 0 0112 20.2zm4.5-6.1c-.2-.1-1.3-.6-1.5-.7-.2-.1-.4-.1-.6.1-.2.2-.7.7-.8.9-.1.1-.3.2-.5.1a6.7 6.7 0 01-2-1.3 7.5 6.5 0 01-1.4-1.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3.2-.5 0-.2 0-.4-.1-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.6 1 2.8c.1.2 1.8 2.8 4.3 3.9.6.3 1.1.5 1.5.6.6.2 1.1.2 1.5.1.5-.1 1.3-.6 1.5-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.1-.4-.2z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal" style="transition-delay:140ms;">
+          <h4>Statement</h4>
+          <p>OVNLY — Be Your Own.<br><span style="color:rgba(237,237,237,.58)">The Human Archive.</span></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Reveal
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('show');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(el => io.observe(el));
+
+    // Active nav
+    const links = document.querySelectorAll('[data-link]');
+    const sections = ['home','feature','articles','about'].map(id => document.getElementById(id)).filter(Boolean);
+    const setActive = (id) => {
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    };
+    const ioNav = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting).sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible && visible.target && visible.target.id) setActive(visible.target.id);
+    }, { threshold: [0.25, 0.5, 0.75] });
+    sections.forEach(s => ioNav.observe(s));
+    setActive('home');
+
+    // Reading progress
+    const progress = document.getElementById('progress');
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const scrollTop = doc.scrollTop || document.body.scrollTop;
+      const scrollHeight = doc.scrollHeight - doc.clientHeight;
+      const p = scrollHeight > 0 ? (scrollTop / scrollHeight) : 0;
+      progress.style.transform = `scaleX(${Math.min(1, Math.max(0, p))})`;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Klik Feature card => auto buka article + scroll
+    const openOnly = (id) => {
+      const target = document.getElementById(id);
+      if (!target) return;
+
+      // close all
+      document.querySelectorAll('details.article').forEach(d => {
+        if (d.id !== id) d.open = false;
+      });
+
+      // open target
+      target.open = true;
+
+      // smooth scroll
+      const y = target.getBoundingClientRect().top + window.scrollY - 110;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    };
+
+    document.querySelectorAll('[data-goto]').forEach(card => {
+      const id = card.getAttribute('data-goto');
+      const handler = () => openOnly(id);
+      card.addEventListener('click', handler);
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); }
+      });
+    });
+  </script>
 </body>
 </html>
